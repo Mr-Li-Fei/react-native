@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  ScrollView,
 } from 'react-native'
 import React, { useState } from 'react'
 import GuessScreen  from './GuessScreen';
@@ -70,10 +71,11 @@ export default function GuessContent(props) {
             <View style={styles.header}>
               <Text style={{ color: "#fff" }}>Guess A Modal</Text>
             </View>
+            <ScrollView style={{width: '100%', height: '100%'}}>
             {
               isOpenGuessScreen ? 
               <GuessScreen selectedNumber={inputNumber} closeGuessScreen={onCloseGuessModal} reStartGame={oneStartGame}/>
-              : <View style={{ alignItems: 'center', height: '100%' }}>
+              : <View style={{ alignItems: 'center', height: '100%', width: '100%' }}>
                   <View style={styles.content}>
                     <View style={styles.input}>
                       <TextInput
@@ -104,6 +106,7 @@ export default function GuessContent(props) {
                 }
               </View>
             }
+            </ScrollView>
           </View>
         </TouchableWithoutFeedback>
       }
@@ -121,8 +124,9 @@ const styles = StyleSheet.create({
   },
   content: {
     //TODO:: 阴影未显示....
-    width: 300,
-    maxHeight: '80%',
+    // width: 300, 
+    width: '80%', // 尽量使用百分比的表示方法，可以在不同尺寸的设备上样式基本统一
+    minHeight: 300,
     alignItems: 'center',
     elevation: 6,
     shadowColor: '#ddd',
@@ -132,7 +136,7 @@ const styles = StyleSheet.create({
     // shadowRadius: 6,
   },
   input: {
-    width: '70%',
+    width:'70%',
     borderWidth: 1,
     marginVertical: 20,
   },
@@ -142,9 +146,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   card: {
-    width: 200,
+    width: '50%', // 百分比表示
     // height: 200,
-    marginTop: 20,
+    // marginTop: 20,
     backgroundColor: '#ccc',
     borderRadius: 10,
     padding: 20,

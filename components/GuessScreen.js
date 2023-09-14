@@ -16,8 +16,8 @@ const genrateRandomBetween = (min, max, exclude) => {
 const GuessScreen = props => {
     const [currentGuess, setCurrentGuess] = useState(genrateRandomBetween(1, 100, props.selectedNumber));
 
-    // useRef() 区别与useState() 可以创建
-    let currentMin = useRef(1);
+    // useRef() 区别与useState(), useRef 保存的值不变， useState()保存的值是state, 用于界面交互的， 在组件更新渲染的时候会变
+    let currentMin = useRef(1); 
     let currentMax = useRef(100);
 
     useEffect(() => {
