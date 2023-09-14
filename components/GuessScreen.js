@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native'
+import { View, Text, StyleSheet, Button, Alert, Dimensions, Platform } from 'react-native'
 
   // 定义生成验证数字的函数
 const genrateRandomBetween = (min, max, exclude) => {
@@ -14,17 +14,25 @@ const genrateRandomBetween = (min, max, exclude) => {
 }
 
 const GuessScreen = props => {
-    const [currentGuess, setCurrentGuess] = useState(genrateRandomBetween(1, 100, props.selectedNumber));
+    const [currentGuess, setCurrentGuess] = useState(genrateRandomBetween(1, 100, props.selectedNumber))
+    const [currentWidth, setCurrentWidth] = useState(Dimensions.get('window').width);
 
     // useRef() 区别与useState(), useRef 保存的值不变， useState()保存的值是state, 用于界面交互的， 在组件更新渲染的时候会变
     let currentMin = useRef(1); 
     let currentMax = useRef(100);
 
+    const onUpdateWidth = () => {
+       setCurrentWidth(Dimensions.get('window').width);
+    };
+
     useEffect(() => {
         if (currentGuess === Number(props.selectedNumber)) {
             console.log('successful');
             Alert.alert('Successful!', 'It\'s great! Get it!', [{text: 'Again', onPress:props.reStartGame}]);
-        }
+        };
+        const dimension = Dimensions.addEventListener('change', onUpdateWidth);
+        console.log(dimension, 'run');
+        return () => { dimension.remove(); }
     });
 
     const onJudgeDirection= (direction) => {
@@ -55,6 +63,12 @@ const GuessScreen = props => {
                 <Button title='Lower' onPress={() => onJudgeDirection('lower')}/>
                 <Button title='Greater' onPress={() => onJudgeDirection('greater')}/>
                 {/* <Button title='Close' onPress={() =>　props.closeGuessScreen(false)} /> */}
+            </View>
+            {/* add element to apply Dimensions and platform api to show something*/}
+            <View style={{alignContent: 'center'}}>
+                <Text style={{color: '#000', fontSize: 14,}}>Show Device Details:</Text>
+                <Text style={{color: '#000', fontSize: 14,}}>System:{Platform.OS}</Text>
+                <Text style={{color: '#000', fontSize: 14,}}>Width Dimensions:{currentWidth}</Text>
             </View>
         </View>
     )

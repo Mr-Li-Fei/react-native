@@ -71,7 +71,7 @@ export default function GuessContent(props) {
             <View style={styles.header}>
               <Text style={{ color: "#fff" }}>Guess A Modal</Text>
             </View>
-            <ScrollView style={{width: '100%', height: '100%'}}>
+            <ScrollView style={{width: '100%', height: '80%'}}>
             {
               isOpenGuessScreen ? 
               <GuessScreen selectedNumber={inputNumber} closeGuessScreen={onCloseGuessModal} reStartGame={oneStartGame}/>
@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
     //TODO:: 阴影未显示....
     // width: 300, 
     width: '80%', // 尽量使用百分比的表示方法，可以在不同尺寸的设备上样式基本统一
-    minHeight: 300,
     alignItems: 'center',
     elevation: 6,
     shadowColor: '#ddd',
@@ -148,7 +147,7 @@ const styles = StyleSheet.create({
   card: {
     width: '50%', // 百分比表示
     // height: 200,
-    // marginTop: 20,
+    marginTop: 20,
     backgroundColor: '#ccc',
     borderRadius: 10,
     padding: 20,
