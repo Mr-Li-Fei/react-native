@@ -3,7 +3,7 @@ import React from 'react'
 
 const CategoriesScreen = (props) => {
   return (
-    <View style={screen}>
+    <View style={styles.screen}>
       <Text>CategoriesScreen screen!</Text>
     </View>
   )
