@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, View, Text } from 'react-native';
+import { StyleSheet, Image, View, Text, Button } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -54,7 +54,16 @@ const App = () => {
         <Stack.Screen 
           name='HeaderTitle' 
           component={PageWithHeaderTitle}
-          options={{headerTitle: () =>　<LogoTitle />}}
+          options={{
+            headerTitle: () =>　<LogoTitle />,
+            headerRight: () => (
+              <Button
+                onPress={ () => alert('This is a Button!')}
+                title='Info'
+                color='color'
+              />
+            )
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
