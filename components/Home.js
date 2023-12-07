@@ -27,18 +27,20 @@ export default function Home(props) {
 
     return (
         <View style={{alignItems: 'center'}}>
-            <Button title='go to Details' onPress={() => props.navigation.navigate('Details', {
-                // id: 'details',
-                msg: 'more details is coming...',
-                data: num,
-                // 不能传输函数？？？？？
-                // func: addNum,
-            })}/>
+            <View style={{paddingVertical: 20}}>
+                <Button title='go to Details' onPress={() => props.navigation.navigate('Details', {
+                    // id: 'details',
+                    msg: 'more details is coming...',
+                    data: num,
+                    // 不能传输函数？？？？
+                    // func: addNum,
+                })}/>
+            </View>
             <Button title='go to HeaderTitle' onPress={() =>　props.navigation.navigate('HeaderTitle')}/>
             <View style={{paddingVertical: 20}}>
                 <Button title='Add a GoalModal' onPress={() => {setIsAddModal(true)}}/>
             </View>
-            <View style={{paddingVertical: 20}}>
+            <View>
                 <Button title='Guess a number' onPress={() => {setIsShowGuessModal(true)}} />
             </View>
             <GoalInput 

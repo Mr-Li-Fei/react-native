@@ -1,89 +1,39 @@
 import React from 'react';
-import { StyleSheet, Image, View, Text, Button } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Home from './components/Home';
-import Details from './components/Details';
-import PageWithHeaderTitle from './components/PageWithHeaderTitle';
-// import InitPage from './components/InitPage';
+import MyApp from './components/MyApp';
+import Setting from './components/Setting';
 
-const Stack = createNativeStackNavigator();
-
-// function HomeScreen() {
-//   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Text>Home Screen</Text>
-//     </View>
-//   );
-// }
-
-function LogoTitle() {
-  return (
-    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-      <Image
-        style={{width: 50, height: 50}}
-        source={require('./asserts/image/Doraemon.jpg')}
-      />
-      <Text>哆啦A梦</Text>
-    </View>
-  );
-}
+const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const someData = {
-    id: 'Home-feifei',
-  }
   return (
     <NavigationContainer>
-      <Stack.Navigator
-      // 抽离导航头部通用设置， 不用在每个Screen 的options中设置
-        screenOptions={{...HeaderStyle}}
+      <Tab.Navigator
+        screenOptions={({route}) =>  ({
+            //headerShown: false, // 设置底部Tab.Screen 的header不显示
+            tabBarIcon: ({focused, color, size}) => {
+              let iconName;
+              if(route.name === 'My') {
+                iconName = focused ? 'information-circle' : 'information-circle-outline';
+              } else if(route.name === 'Setting') {
+                iconName = focused ? 'list' : 'list-outline';
+              }
+
+              return <Ionicons name={iconName} size={size} color={color} />
+            },            
+        })}
       >
-        <Stack.Screen name="Home">
-          {/* 可以传递一些除props 以外的一些自定义数据 */}
-          { (props) => <Home {...props} {...someData}></Home>}
-        </Stack.Screen>
-        <Stack.Screen 
-          name="Details" 
-          component={Details} 
-          options={{title: 'Detail'}}
-          // 定义初始化的Params
-          initialParams={{id: 'initDetails'}}
-        />
-        <Stack.Screen 
-          name='HeaderTitle' 
-          component={PageWithHeaderTitle}
-          options={{
-            headerTitle: () =>　<LogoTitle />,
-            headerRight: () => (
-              <Button
-                onPress={ () => alert('This is a Button!')}
-                title='Info'
-                color='color'
-              />
-            )
-          }}
-        />
-      </Stack.Navigator>
+        <Tab.Screen name='My' component={MyApp} options={{tabBarBadge: 4, headerShown: false} }></Tab.Screen>
+        <Tab.Screen name='Setting' component={Setting} options={{headerStyle: {backgroundColor: '#f4511e'}, headerTintColor: '#fff'}}></Tab.Screen>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };
 
 export default App;
-
-const HeaderStyle = {
-  // 有三个关键属性配置Header样式
-  // 页头背景颜色
-  headerStyle: {
-    backgroundColor: '#f4511e',
-  },
-  // the color of back icon and header words 
-  headerTintColor: '#fff',
-  // 自定义Text相关样式
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  }
-}
 
 const styles = StyleSheet.create();
