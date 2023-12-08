@@ -3,9 +3,10 @@ import { StyleSheet } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import 'react-native-gesture-handler';
 
 import MyApp from './components/MyApp';
-import Setting from './components/Setting';
+import Settings from './components/Settings';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,16 +20,23 @@ const App = () => {
               let iconName;
               if(route.name === 'My') {
                 iconName = focused ? 'information-circle' : 'information-circle-outline';
-              } else if(route.name === 'Setting') {
+              } else if(route.name === 'Settings') {
                 iconName = focused ? 'list' : 'list-outline';
               }
 
               return <Ionicons name={iconName} size={size} color={color} />
-            },            
+            },
+            headerShown: false,
         })}
       >
-        <Tab.Screen name='My' component={MyApp} options={{tabBarBadge: 4, headerShown: false} }></Tab.Screen>
-        <Tab.Screen name='Setting' component={Setting} options={{headerStyle: {backgroundColor: '#f4511e'}, headerTintColor: '#fff'}}></Tab.Screen>
+        <Tab.Screen name='My' component={MyApp} options={{tabBarBadge: 4} }></Tab.Screen>
+        <Tab.Screen
+          name='Settings' 
+          component={Settings} 
+          options={{
+            headerStyle: {backgroundColor: '#f4511e'}, 
+            headerTintColor: '#fff',
+          }}></Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
   );
